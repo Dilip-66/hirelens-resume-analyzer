@@ -1,0 +1,49 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: resume-rag-analyzer
+  datasource:
+    url: ${SUPABASE_DB_URL}
+    username: ${SUPABASE_DB_USER:postgres}
+    password: ${SUPABASE_DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  cors:
+    allowed-origins: ${FRONTEND_URL:http://localhost:3000}
+  supabase:
+    url: ${SUPABASE_URL:}
+    jwt-secret: ${SUPABASE_JWT_SECRET:default-secret}
+  jwt:
+    secret: ${JWT_SECRET:hirelens-jwt-secret-key-that-is-long-enough-for-hmac-sha256-algorithm}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  openai:
+    api-key: ${OPENAI_API_KEY}
+    embedding-model: text-embedding-3-small
+    embedding-dimensions: 1536
+    chat-model: gpt-4o-mini
+  rag:
+    chunk-size: 800
+    chunk-overlap: 120
+    top-k: 6
+
+logging:
+  level:
+    com.resumerag: INFO
