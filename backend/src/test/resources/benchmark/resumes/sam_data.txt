@@ -1,0 +1,29 @@
+Sam Whitfield
+
+Contact: sam.w@example.com | +1 617 555 0199 | Boston, MA
+
+Summary:
+Data analyst turning messy operational data into dashboards leadership actually reads.
+
+Technical Skills:
+
+* SQL
+* Python
+* pandas
+* NumPy
+* Tableau
+* Excel
+* dbt
+* Airflow
+* PostgreSQL
+
+Experience:
+Data Analyst — Beacon Retail Group | 2021–Present
+
+* Built dbt models over 400M rows of PostgreSQL and Snowflake data.
+* Automated weekly reporting with Airflow, saving 15 analyst hours per week.
+* Delivered Tableau dashboards used in quarterly board reviews.
+* Wrote Python scripts to reconcile payment data across three source systems.
+
+Education:
+BA Economics, Boston University, 2020

@@ -1,0 +1,13 @@
+{
+  "id": "moderate_ml_for_backend",
+  "group": "C_MODERATE",
+  "description": "An ML engineer against a Java backend role: strong Python, no Java.",
+  "resume": "maya_ai.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "overallRange": [15, 55],
+    "minRequiredMatchedRatio": 0.1,
+    "expectNotExplicit": ["Java", "Spring Boot"],
+    "rationale": "SQL, Docker, microservices language, Git and cloud deployment all transfer. The role's primary language and framework are entirely absent. A candidate who can write Python services is closer than a pure data analyst, but not close to a Java backend engineer."
+  }
+}

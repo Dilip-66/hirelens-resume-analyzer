@@ -1,0 +1,38 @@
+{
+  "id": "strong_full_stack",
+  "group": "A_STRONG",
+  "description": "The validation case: a full-stack candidate who covers the whole documented stack.",
+  "resume": "arjun_full_stack.txt",
+  "jd": "fullstack_junior_mid.txt",
+  "expectations": {
+    "overallRange": [
+      78,
+      100
+    ],
+    "requiredSkillsRange": [
+      75,
+      100
+    ],
+    "experienceRange": [
+      95,
+      100
+    ],
+    "expectedExperienceStatus": "WITHIN_RANGE",
+    "minRequiredMatchedRatio": 0.85,
+    "minResponsibilitiesMatchedRatio": 0.7,
+    "expectStatus": {
+      "Java": "EXPLICIT_MATCH",
+      "Spring Boot": "EXPLICIT_MATCH",
+      "React": "EXPLICIT_MATCH",
+      "REST APIs": "EXPLICIT_MATCH",
+      "PostgreSQL or SQL": "EXPLICIT_MATCH",
+      "Docker": "EXPLICIT_MATCH",
+      "AWS or Cloud platforms": "EXPLICIT_MATCH"
+    },
+    "expectNotExplicit": [
+      "Artificial intelligence or Machine learning",
+      "Code reviews"
+    ],
+    "rationale": "Every technology the job names is used in a professional role, and the experience band fits, so this must land high. The ceiling is not 100 because the resume never mentions code review and only partly evidences problem solving and the development lifecycle, and a range rather than a total leaves room for those to be priced differently later."
+  }
+}

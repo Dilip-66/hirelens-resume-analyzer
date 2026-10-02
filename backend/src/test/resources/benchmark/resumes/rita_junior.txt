@@ -1,0 +1,17 @@
+Rita Okafor
+
+Technical Skills:
+* JavaScript
+* Python
+* HTML
+* CSS
+
+Experience:
+Junior Developer — Fernwood Digital | 2024–Present
+
+* Built marketing landing pages in JavaScript and CSS.
+* Wrote Python scripts to migrate content between CMS platforms.
+* Took part in code reviews with senior engineers.
+
+Education:
+BSc Information Systems, University of Lagos, 2024

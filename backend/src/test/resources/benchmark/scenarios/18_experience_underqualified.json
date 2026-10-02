@@ -1,0 +1,14 @@
+{
+  "id": "experience_underqualified",
+  "group": "F_EXPERIENCE",
+  "description": "One year against a 3-5 year minimum, on an otherwise good stack.",
+  "resume": "noah_junior.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "overallRange": [30, 65],
+    "experienceRange": [15, 45],
+    "expectedExperienceStatus": "BELOW_RANGE",
+    "expectStatus": { "Java": "EXPLICIT_MATCH" },
+    "rationale": "Java, Git, SQL and REST work are all real, so this is not a weak candidate - but the band asks for three to five years and the resume states one. The experience assertion is that the dimension lands well below 50 and the status is BELOW_RANGE, and the overall band records that a shortfall of that size has to be visible in the headline number."
+  }
+}

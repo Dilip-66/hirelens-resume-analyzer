@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, Mail, Target, Globe, Moon, Bell } from "lucide-react";
+import { User, Target, Globe, Bell } from "lucide-react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 

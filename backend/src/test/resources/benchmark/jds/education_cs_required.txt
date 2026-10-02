@@ -1,0 +1,20 @@
+Software Engineer
+
+Experience: 2–4 years
+
+Required Skills:
+
+* Bachelor's degree in Computer Science or related field
+* Strong programming skills in Java
+* Familiarity with Git and GitHub
+* 2–4 years of software development experience
+
+Preferred Skills:
+
+* Docker
+
+Responsibilities:
+
+* Build backend services using Java and Spring Boot.
+* Participate in code reviews.
+* Write clean, maintainable, and scalable code.

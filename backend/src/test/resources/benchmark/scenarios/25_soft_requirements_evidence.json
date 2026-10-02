@@ -1,0 +1,12 @@
+{
+  "id": "soft_requirements_with_evidence",
+  "group": "J_SOFT",
+  "description": "A resume that does evidence collaboration and code review.",
+  "resume": "rita_junior.txt",
+  "jd": "java_backend_junior.txt",
+  "expectations": {
+    "expectStatus": { "Code reviews": "EXPLICIT_MATCH" },
+    "overallRange": [0, 100],
+    "rationale": "Counter-case to the scenario above: this resume explicitly says 'Took part in code reviews with senior engineers', so the requirement must match. The pair is the test that code review is read from the document rather than assumed either way."
+  }
+}

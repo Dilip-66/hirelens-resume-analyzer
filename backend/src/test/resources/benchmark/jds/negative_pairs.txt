@@ -1,0 +1,25 @@
+Systems Engineer
+
+Experience: 3–6 years
+
+Required Skills:
+
+* Strong programming skills in Java
+* Strong experience with Docker
+* Strong experience with Kubernetes
+* Strong experience with AWS
+* Strong knowledge of JavaScript
+* Strong experience with MySQL
+* Strong experience with Azure
+* 3–6 years of software development experience
+
+Preferred Skills:
+
+* React Native
+* Deep Learning
+* Angular
+
+Responsibilities:
+
+* Deploy and maintain applications on cloud platforms.
+* Containerize applications using Docker.

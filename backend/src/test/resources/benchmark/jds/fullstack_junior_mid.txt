@@ -1,0 +1,42 @@
+Full-Stack Software Developer
+
+Experience: 1–3 years
+
+Required Skills:
+
+* Strong programming skills in Java
+* Experience with Spring Boot
+* Frontend development using React
+* Knowledge of JavaScript and/or TypeScript
+* Experience developing REST APIs
+* Strong knowledge of PostgreSQL / SQL
+* Familiarity with Git and GitHub
+* Experience with Docker
+* Basic experience with AWS or cloud platforms
+* Good problem-solving and debugging skills
+* Understanding of software development lifecycle
+* 1–3 years of software development experience
+
+Preferred Skills:
+
+* Microservices architecture
+* Python
+* Redis or caching
+* CI/CD pipelines
+* GitHub Actions
+* AWS EC2 / S3
+* Automated testing
+* Basic knowledge of AI/ML
+
+Responsibilities:
+
+* Develop and maintain backend services using Java and Spring Boot.
+* Build responsive web interfaces using React, JavaScript, and TypeScript.
+* Design and integrate RESTful APIs.
+* Work with PostgreSQL databases and optimize queries.
+* Containerize applications using Docker.
+* Deploy and maintain applications on cloud platforms.
+* Collaborate using Git and GitHub.
+* Debug issues and improve application performance.
+* Participate in code reviews.
+* Write clean, maintainable, and scalable code.

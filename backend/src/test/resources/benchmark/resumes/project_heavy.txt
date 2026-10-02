@@ -1,0 +1,33 @@
+Felix Moreau
+
+Contact: felix.moreau@example.com | +33 6 12 34 56 78 | Lyon, France
+
+Summary:
+Backend developer with 5 years of experience on Spring Boot payment services.
+
+Technical Skills:
+
+* Java
+* Spring Boot
+* PostgreSQL
+* Docker
+* AWS
+* Microservices
+* Git
+
+Experience:
+Backend Developer — Rhone Payments | 2021–Present
+
+* Built payment processing services in Java and Spring Boot.
+* Worked with PostgreSQL and wrote optimised SQL queries.
+* Deployed services to AWS with Docker.
+
+Projects:
+Ledger Service (2023)
+* Built a Spring Boot REST API for a double-entry ledger used by three internal teams.
+* Designed PostgreSQL schemas and optimised SQL queries handling 12M rows per day.
+* Containerised the service with Docker and deployed it to AWS EC2.
+
+Pipeline Dashboard (2022)
+* Built a Spring Boot REST API for pipeline throughput metrics.
+* Delivered a 30% reduction in end-to-end processing time.

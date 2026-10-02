@@ -1,0 +1,13 @@
+{
+  "id": "weak_frontend_for_devops",
+  "group": "D_WEAK",
+  "description": "A frontend specialist against an infrastructure role.",
+  "resume": "zoe_frontend_only.txt",
+  "jd": "devops.txt",
+  "expectations": {
+    "overallRange": [0, 40],
+    "minRequiredMatchedRatio": 0.0,
+    "expectNotExplicit": ["Docker", "Kubernetes", "CI/CD"],
+    "rationale": "No containerisation, no orchestration, no pipelines. Git is the only transferable item. Should be firmly in the weak band."
+  }
+}

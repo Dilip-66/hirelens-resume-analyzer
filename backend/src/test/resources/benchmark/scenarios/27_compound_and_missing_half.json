@@ -1,0 +1,11 @@
+{
+  "id": "compound_git_without_github",
+  "group": "K_COMPOUND",
+  "description": "'Git and GitHub' where the resume names only Git.",
+  "resume": "dave_devops.txt",
+  "jd": "devops.txt",
+  "expectations": {
+    "expectStatus": { "Git + GitHub": "PARTIAL_MATCH" },
+    "rationale": "A plain conjunction needs both. This resume lists Git and works with source control but never names GitHub, so the requirement must be partial rather than matched or reported as wholly absent - the distinction that keeps a half-evidenced requirement from being shown as a total gap."
+  }
+}

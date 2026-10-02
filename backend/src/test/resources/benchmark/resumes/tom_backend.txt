@@ -1,0 +1,38 @@
+Tom Berger
+
+Contact: tom.berger@example.com | +1 415 555 0142 | Austin, TX
+
+Summary:
+Backend engineer with 7 years building payment and billing platforms in Java and Kotlin.
+
+Technical Skills:
+
+* Java
+* Kotlin
+* Spring Boot
+* PostgreSQL
+* MySQL
+* Kafka
+* Redis
+* Docker
+* Kubernetes
+* AWS
+* Terraform
+* Git
+
+Experience:
+Senior Backend Engineer — Payflow Systems | 2021–Present
+
+* Led migration of a monolithic billing service to twelve Spring Boot microservices.
+* Designed event-driven payment processing on Kafka with exactly-once semantics.
+* Reduced p99 API latency by 60% through query optimisation and Redis caching.
+* Operated the platform on Kubernetes across three AWS regions using Terraform.
+* Mentored four engineers and ran the weekly design review for the payments team.
+
+Backend Engineer — Northwind Retail | 2018–2021
+
+* Built order management APIs in Java with Spring Boot and PostgreSQL.
+* Implemented idempotent retry handling for payment webhooks.
+
+Education:
+BSc Software Engineering, University of Texas at Austin, 2018

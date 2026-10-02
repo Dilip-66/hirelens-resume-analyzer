@@ -1,0 +1,13 @@
+{
+  "id": "poor_marketer_for_backend",
+  "group": "E_POOR",
+  "description": "A content marketer against a backend engineering role: unrelated in every dimension.",
+  "resume": "lena_marketing.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "overallRange": [0, 30],
+    "minRequiredMatchedRatio": 0.0,
+    "expectNotExplicit": ["Java", "Spring Boot", "PostgreSQL", "Docker", "REST APIs"],
+    "rationale": "Nothing in the job description appears in the resume. The ceiling of 30 is the assertion that a completely unrelated CV cannot accumulate incidental credit from a shared word like 'performance' or 'strategy'."
+  }
+}

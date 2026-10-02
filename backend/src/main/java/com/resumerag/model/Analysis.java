@@ -25,30 +25,38 @@ public class Analysis {
     @Column(name = "match_score", nullable = false)
     private int matchScore;
 
-    @Lob
     @Column(name = "summary")
     private String summary;
 
     /** JSON-encoded string arrays, kept as raw JSON text to avoid a jsonb Hibernate type dependency. */
-    @Lob
     @Column(name = "strengths_json")
     private String strengthsJson;
 
-    @Lob
     @Column(name = "gaps_json")
     private String gapsJson;
 
-    @Lob
     @Column(name = "matched_skills_json")
     private String matchedSkillsJson;
 
-    @Lob
     @Column(name = "missing_skills_json")
     private String missingSkillsJson;
 
-    @Lob
     @Column(name = "retrieved_chunks_json")
     private String retrievedChunksJson;
+
+    /**
+     * The explainable report header: score, label, experience alignment and
+     * advice, as one JSON document.
+     *
+     * <p>Nullable, and null for every analysis run before evidence-based scoring
+     * existed. The API reads its absence as "old report" and renders those exactly
+     * as it always did, which is the honest outcome - there is no stored reasoning
+     * to show, and a response full of nulls would read as a failure rather than an
+     * older report. The per-requirement evidence behind this lives in
+     * analysis_requirements and analysis_matches, where it can be queried.
+     */
+    @Column(name = "details_json")
+    private String detailsJson;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt = Instant.now();
@@ -75,6 +83,8 @@ public class Analysis {
     public void setMissingSkillsJson(String missingSkillsJson) { this.missingSkillsJson = missingSkillsJson; }
     public String getRetrievedChunksJson() { return retrievedChunksJson; }
     public void setRetrievedChunksJson(String retrievedChunksJson) { this.retrievedChunksJson = retrievedChunksJson; }
+    public String getDetailsJson() { return detailsJson; }
+    public void setDetailsJson(String detailsJson) { this.detailsJson = detailsJson; }
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }

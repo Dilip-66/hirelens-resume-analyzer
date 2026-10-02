@@ -1,0 +1,26 @@
+Kai Nakamura
+
+Contact: kai.n@example.com | +1 617 555 0188 | Cambridge, MA
+
+Summary:
+Research engineer focused on model evaluation and reproducibility.
+
+Technical Skills:
+
+* Python
+* scikit-learn
+* pandas
+* Jupyter
+* Machine Learning
+* Deep Learning
+* SQL
+
+Experience:
+Research Engineer — Atlas Research | 2022–Present
+
+* Built reproducible evaluation harnesses for classification models.
+* Wrote Python analysis of model drift on production traffic.
+* Documented experiment methodology for the research team.
+
+Education:
+MSc Computer Science, MIT, 2022

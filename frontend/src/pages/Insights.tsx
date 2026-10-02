@@ -55,11 +55,16 @@ export default function Insights() {
       </div>
     );
 
+  const rawText = resume?.rawText ?? "";
+  const hasSection = (header: string) =>
+    new RegExp(`^\\s*${header}\\b`, "im").test(rawText);
+  const hasContactDetails = rawText.includes("@");
+
   const sections: SectionAnalysis[] = [
     {
       name: "Contact Information",
-      strengths: ["Resume includes contact details"],
-      issues: [],
+      strengths: hasContactDetails ? ["Resume includes contact details"] : [],
+      issues: hasContactDetails ? [] : ["Add a professional email address near the top of the resume"],
       suggestions: ["Ensure email and phone are professional"],
     },
     {
@@ -82,8 +87,8 @@ export default function Insights() {
     },
     {
       name: "Education",
-      strengths: ["Education section present"],
-      issues: [],
+      strengths: hasSection("education") ? ["Education section present"] : [],
+      issues: hasSection("education") ? [] : ["No education section found in the resume"],
       suggestions: ["Include relevant coursework if applicable"],
     },
   ];

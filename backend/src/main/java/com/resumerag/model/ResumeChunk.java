@@ -28,7 +28,6 @@ public class ResumeChunk {
     @Column(name = "section")
     private String section;
 
-    @Lob
     @Column(name = "content", nullable = false)
     private String content;
 

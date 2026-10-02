@@ -22,7 +22,6 @@ public class JobDescription {
     @Column(name = "company")
     private String company;
 
-    @Lob
     @Column(name = "raw_text", nullable = false)
     private String rawText;
 

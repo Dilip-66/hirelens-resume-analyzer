@@ -1,0 +1,12 @@
+{
+  "id": "partial_advanced_aws_from_list",
+  "group": "H_PARTIAL",
+  "description": "'Advanced AWS deployment' against a resume that only lists AWS.",
+  "resume": "arjun_full_stack.txt",
+  "jd": "cloud_advanced_aws.txt",
+  "expectations": {
+    "overallRange": [0, 100],
+    "expectNotExplicit": ["Terraform"],
+    "rationale": "This scenario exists to confirm the advanced-demand rule from the other direction: 'Advanced AWS deployment' must not be treated as fully met by a skills-list mention, even though the same resume matches the EC2/S3 requirement outright in the scenario above. Whether the AWS requirement lands as PARTIAL is asserted in the unit tests, where it can be pinned precisely; here the assertion is the negative one."
+  }
+}

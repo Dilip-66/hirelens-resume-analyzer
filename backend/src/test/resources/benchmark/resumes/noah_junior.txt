@@ -1,0 +1,16 @@
+Noah Bennett
+
+Technical Skills:
+* Java
+* HTML
+* CSS
+
+Experience:
+Software Developer — Cobalt Labs | 2024-01 – 2025-01
+
+* Built internal CRUD screens in Java and Spring Boot.
+* Fixed production bugs reported by the support team.
+* Wrote SQL queries for reporting screens.
+
+Education:
+BSc Computer Science, University of Leeds, 2024

@@ -1,0 +1,12 @@
+{
+  "id": "education_cs_required_unmet",
+  "group": "L_EVIDENCE",
+  "description": "A design degree against a role that requires a CS degree.",
+  "resume": "zoe_frontend_only.txt",
+  "jd": "education_cs_required.txt",
+  "expectations": {
+    "expectNotExplicit": ["Java"],
+    "overallRange": [0, 100],
+    "rationale": "The role requires Computer Science specifically; this resume states a BA in Design, and the candidate has no Java. A field mismatch is a real finding, but it must be reported as what the resume says rather than as a claim about the person's ability, and the degree level itself is met."
+  }
+}

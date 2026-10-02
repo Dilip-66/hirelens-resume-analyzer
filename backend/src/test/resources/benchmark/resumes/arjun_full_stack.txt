@@ -1,0 +1,38 @@
+Arjun Rao
+
+Experience:
+2.5 years
+
+Summary:
+Software Developer with 2.5 years of experience building scalable full-stack web applications
+using Java, Spring Boot, React, PostgreSQL and AWS.
+
+Technical Skills:
+
+* Java
+* Spring Boot
+* React
+* TypeScript
+* JavaScript
+* REST APIs
+* PostgreSQL
+* Docker
+* AWS
+* Git/GitHub
+* Microservices
+* Redis
+* CI/CD
+* Python
+
+Experience:
+Software Developer — TechNova Solutions | 2024–Present
+
+* Developed REST APIs using Java and Spring Boot for enterprise web applications.
+* Built responsive React and TypeScript dashboards and reusable UI components.
+* Designed PostgreSQL schemas and optimized SQL queries for production workloads.
+* Dockerized microservices and deployed applications on AWS EC2 and S3.
+* Implemented GitHub Actions CI/CD pipelines and automated testing workflows.
+* Reduced API response time by 30% through caching and query optimization.
+
+Education:
+Bachelor's Degree — Relevant field of study

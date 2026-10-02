@@ -1,0 +1,27 @@
+Platform Engineer
+
+Experience: 2–5 years
+
+Required Skills:
+
+* Strong experience with Amazon Web Services
+* Strong knowledge of Postgres
+* Experience with RESTful services
+* Experience with React.js
+* Strong experience with continuous integration and continuous deployment
+* Strong experience with K8s
+* Strong knowledge of JavaScript
+* Strong programming skills in Java
+* Familiarity with Git and Git Hub
+* 2–5 years of software development experience
+
+Preferred Skills:
+
+* Machine Learning
+* Artificial Intelligence
+
+Responsibilities:
+
+* Deploy and maintain applications on cloud platforms.
+* Design and integrate RESTful APIs.
+* Build responsive web interfaces using React, JavaScript, and TypeScript.

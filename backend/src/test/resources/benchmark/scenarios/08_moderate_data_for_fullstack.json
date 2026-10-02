@@ -1,0 +1,15 @@
+{
+  "id": "moderate_data_analyst_for_fullstack",
+  "group": "C_MODERATE",
+  "description": "A data analyst against the full-stack product role. Some overlap, mostly the wrong domain.",
+  "resume": "sam_data.txt",
+  "jd": "fullstack_junior_mid.txt",
+  "expectations": {
+    "overallRange": [
+      5,
+      35
+    ],
+    "minRequiredMatchedRatio": 0.05,
+    "rationale": "SQL is the only genuinely shared required technology and PostgreSQL counts as a partial, so one of eleven required skills is met at best. The original 0.1 minimum assumed two."
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "partial_spring_without_microservices",
+  "group": "H_PARTIAL",
+  "description": "The JD asks for Spring Boot and microservices; the resume only shows Spring Boot.",
+  "resume": "owen_partial_ml.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "expectStatus": { "Spring Boot": "EXPLICIT_MATCH" },
+    "expectNotExplicit": ["Microservices", "Kafka", "Kubernetes"],
+    "rationale": "Spring Boot is demonstrated in a role. Microservices, Kafka, Kubernetes and Redis are all absent, and microservices is a required skill in this job description, so its absence has to cost the required-skills score rather than being absorbed by the Spring evidence."
+  }
+}

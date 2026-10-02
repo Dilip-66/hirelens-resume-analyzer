@@ -1,0 +1,28 @@
+Zoe Petrov
+
+Contact: zoe.p@example.com | +35 21 555 0199 | Lisbon, Portugal
+
+Summary:
+Frontend developer specialising in design systems and accessibility.
+
+Technical Skills:
+
+* React
+* JavaScript
+* TypeScript
+* HTML
+* CSS
+* Sass
+* Storybook
+* Vitest
+
+Experience:
+Frontend Developer — Lumen Design | 2022–Present
+
+* Built reusable React component libraries with TypeScript.
+* Improved accessibility to WCAG AA across the marketing site.
+* Introduced Storybook for component documentation.
+* Wrote Vitest tests for shared components.
+
+Education:
+BA Design, University of Lisbon, 2021

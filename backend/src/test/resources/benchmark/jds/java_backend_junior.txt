@@ -1,0 +1,23 @@
+Java Backend Engineer
+
+Experience: 1–2 years
+
+Required Skills:
+
+* Strong programming skills in Java
+* Familiarity with Spring Boot
+* Familiarity with Git and GitHub
+* Basic knowledge of SQL
+* 1–2 years of software development experience
+
+Preferred Skills:
+
+* Docker
+* REST APIs
+
+Responsibilities:
+
+* Build backend services using Java and Spring Boot.
+* Fix bugs and improve application performance.
+* Write clean, maintainable, and scalable code.
+* Participate in code reviews.

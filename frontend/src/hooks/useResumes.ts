@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { listResumes, uploadResume as uploadResumeApi } from "@/services/resumeService";
-import type { Resume, UploadResponse } from "@/types/analysis";
+import type { Resume } from "@/types/analysis";
 
 export function useResumes() {
   const [resumes, setResumes] = useState<Resume[]>([]);
@@ -24,7 +24,7 @@ export function useResumes() {
     fetchResumes();
   }, [fetchResumes]);
 
-  const upload = async (file: File): Promise<UploadResponse> => {
+  const upload = async (file: File): Promise<Resume> => {
     const result = await uploadResumeApi(file);
     await fetchResumes();
     return result;

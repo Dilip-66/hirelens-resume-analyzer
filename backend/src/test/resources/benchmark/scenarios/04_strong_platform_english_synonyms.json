@@ -1,0 +1,23 @@
+{
+  "id": "strong_platform_synonyms",
+  "group": "G_SEMANTIC",
+  "description": "Every technology named in a different way than the resume uses it.",
+  "resume": "oliver_cloud.txt",
+  "jd": "synonym_heavy.txt",
+  "expectations": {
+    "minRequiredMatchedRatio": 0.35,
+    "expectStatus": {
+      "AWS": "EXPLICIT_MATCH",
+      "Kubernetes": "EXPLICIT_MATCH",
+      "REST APIs": "NOT_EXPLICITLY_MENTIONED",
+      "CI/CD": "EXPLICIT_MATCH",
+      "JavaScript": "NOT_EXPLICITLY_MENTIONED",
+      "Java": "NOT_EXPLICITLY_MENTIONED",
+      "Git + GitHub": "EXPLICIT_MATCH",
+      "Machine learning": "NOT_EXPLICITLY_MENTIONED",
+      "Artificial intelligence": "NOT_EXPLICITLY_MENTIONED",
+      "React": "NOT_EXPLICITLY_MENTIONED"
+    },
+    "rationale": "A per-requirement test of the synonym layer, which is more useful here than a coverage ratio. The job description writes 'Amazon Web Services', 'Postgres', 'RESTful services', 'React.js', 'continuous integration and continuous deployment', 'K8s' and 'Git Hub'; this platform resume writes AWS, Kubernetes, CI/CD and Git. So the four synonym pairs the job description puts it at odds with must all match, and the technologies it never mentions - Java, JavaScript, React, PostgreSQL under the name 'Postgres', and REST work - must not. The earlier 0.85 coverage minimum was an expectation about this resume, not about the vocabulary: the job description is a backend, frontend and cloud grab bag and the candidate has no Java, JavaScript, PostgreSQL, React or REST work at all. Corrected in CALIBRATION.md."
+  }
+}

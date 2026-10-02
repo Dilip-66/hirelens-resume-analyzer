@@ -1,0 +1,12 @@
+{
+  "id": "semantic_aws_ec2_s3_partial",
+  "group": "H_PARTIAL",
+  "description": "The JD names AWS EC2 and S3 specifically; the resume only says AWS.",
+  "resume": "arjun_full_stack.txt",
+  "jd": "cloud_advanced_aws.txt",
+  "expectations": {
+    "expectStatus": { "AWS EC2 or AWS S3": "EXPLICIT_MATCH" },
+    "expectNotExplicit": ["Terraform"],
+    "rationale": "Counter-case to the partial-evidence scenario: here the resume does name EC2 and S3 explicitly, so the requirement must match, and Terraform - a preferred skill the resume never mentions - must not. Together the two scenarios test that EC2/S3 evidence is recognised when present without being assumed when absent."
+  }
+}

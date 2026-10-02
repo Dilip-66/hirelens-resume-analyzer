@@ -1,0 +1,11 @@
+{
+  "id": "compound_js_or_ts",
+  "group": "K_COMPOUND",
+  "description": "'JavaScript and/or TypeScript' satisfied by one of the two.",
+  "resume": "zoe_frontend_only.txt",
+  "jd": "frontend_react.txt",
+  "expectations": {
+    "expectStatus": { "JavaScript or TypeScript": "EXPLICIT_MATCH" },
+    "rationale": "The job says and/or, which means one is enough. This resume names both, so it must match either way - the interesting case is the unit-tested one where only TypeScript is present. What this asserts is that the disjunction is not split into two separate mandatory requirements."
+  }
+}

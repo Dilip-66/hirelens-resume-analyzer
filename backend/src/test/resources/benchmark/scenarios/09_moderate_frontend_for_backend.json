@@ -1,0 +1,13 @@
+{
+  "id": "moderate_frontend_for_backend",
+  "group": "C_MODERATE",
+  "description": "A frontend specialist against a mid-level Java backend role.",
+  "resume": "priya_frontend.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "overallRange": [15, 55],
+    "minRequiredMatchedRatio": 0.05,
+    "expectNotExplicit": ["Java", "Spring Boot", "PostgreSQL", "Docker"],
+    "rationale": "React, JavaScript, TypeScript and Git transfer; Java, Spring Boot, PostgreSQL, SQL, Docker and microservices do not. The band is wide because the two roles genuinely overlap only at the edges."
+  }
+}

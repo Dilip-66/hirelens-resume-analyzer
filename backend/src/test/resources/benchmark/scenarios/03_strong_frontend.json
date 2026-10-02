@@ -1,0 +1,30 @@
+{
+  "id": "strong_frontend",
+  "group": "A_STRONG",
+  "description": "A dedicated frontend specialist against a frontend role.",
+  "resume": "priya_frontend.txt",
+  "jd": "frontend_react.txt",
+  "expectations": {
+    "overallRange": [
+      55,
+      100
+    ],
+    "requiredSkillsRange": [
+      55,
+      100
+    ],
+    "expectedExperienceStatus": "WITHIN_RANGE",
+    "minRequiredMatchedRatio": 0.8,
+    "minResponsibilitiesMatchedRatio": 0.6,
+    "expectStatus": {
+      "React": "EXPLICIT_MATCH",
+      "JavaScript or TypeScript": "EXPLICIT_MATCH",
+      "Automated testing": "EXPLICIT_MATCH",
+      "Web accessibility": "STRONG_CONTEXTUAL_MATCH"
+    },
+    "expectNotExplicit": [
+      "Code reviews"
+    ],
+    "rationale": "A specialist applying for their own specialism, with a quantified performance win. Web accessibility is evidenced only by the word 'accessible' in a summary, and GitHub is never named, so the required dimension lands in the sixties rather than the nineties. The original 75-100 band assumed those two would be met outright. Accessibility is now credited as contextual evidence: the summary says \"accessible\", which is a real if thin claim, and the synonym layer is what lets it count at all."
+  }
+}

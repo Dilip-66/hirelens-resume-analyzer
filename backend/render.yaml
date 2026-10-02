@@ -20,7 +20,15 @@ services:
         generateValue: true
       - key: JWT_EXPIRATION_MS
         value: "86400000"
-      - key: OPENAI_API_KEY
+      - key: OLLAMA_BASE_URL
         sync: false
+      - key: OLLAMA_CHAT_MODEL
+        value: qwen2.5:7b
+      - key: OLLAMA_EMBEDDING_MODEL
+        value: nomic-embed-text
+      - key: OLLAMA_EMBEDDING_DIMENSIONS
+        value: "768"
+      - key: OLLAMA_NUM_CTX
+        value: "8192"
       - key: FRONTEND_URL
         sync: false

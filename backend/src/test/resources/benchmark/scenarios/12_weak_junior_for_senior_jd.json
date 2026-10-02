@@ -1,0 +1,15 @@
+{
+  "id": "weak_junior_for_senior_platform",
+  "group": "D_WEAK",
+  "description": "A junior Java developer against a senior platform engineering role.",
+  "resume": "noah_junior.txt",
+  "jd": "senior_platform.txt",
+  "expectations": {
+    "overallRange": [0, 45],
+    "requiredSkillsRange": [0, 45],
+    "expectedExperienceStatus": "BELOW_RANGE",
+    "minRequiredMatchedRatio": 0.0,
+    "expectNotExplicit": ["Kubernetes", "Terraform", "AWS", "Linux"],
+    "rationale": "Meets essentially nothing: no Kubernetes, no Terraform, no AWS, no Linux, and a one-year band against a 6-10 year requirement. The upper bound of 45 is the calibration assertion - a candidate with Java and SQL should not clear 45 on a senior platform role."
+  }
+}

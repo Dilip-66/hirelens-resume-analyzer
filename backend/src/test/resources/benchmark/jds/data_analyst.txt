@@ -1,0 +1,26 @@
+Data Analyst
+
+Experience: 2–5 years
+
+Required Skills:
+
+* Strong knowledge of SQL
+* Experience with Python
+* Experience with data analysis
+* Experience with data visualization
+* Familiarity with Excel
+* 2–5 years of software development experience
+
+Preferred Skills:
+
+* Tableau
+* dbt
+* Airflow
+* PostgreSQL
+
+Responsibilities:
+
+* Analyze business data and produce insight for stakeholders.
+* Build and maintain data models and dashboards.
+* Automate recurring reporting.
+* Communicate findings to non-technical stakeholders.

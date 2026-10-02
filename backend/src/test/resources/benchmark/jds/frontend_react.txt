@@ -1,0 +1,27 @@
+Frontend Developer
+
+Experience: 3–5 years
+
+Required Skills:
+
+* Strong experience with React
+* Strong knowledge of JavaScript and/or TypeScript
+* Strong knowledge of HTML and CSS
+* Experience with web accessibility
+* Familiarity with Git and GitHub
+* 3–5 years of software development experience
+
+Preferred Skills:
+
+* Sass
+* Webpack
+* Unit Testing
+* Web performance
+
+Responsibilities:
+
+* Build responsive web interfaces using React, JavaScript, and TypeScript.
+* Write clean, maintainable, and scalable code.
+* Improve web performance.
+* Participate in code reviews.
+* Collaborate using Git and GitHub.

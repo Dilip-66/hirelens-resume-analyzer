@@ -1,0 +1,12 @@
+{
+  "id": "poor_data_for_marketing",
+  "group": "E_POOR",
+  "description": "A data analyst against a content marketing role.",
+  "resume": "sam_data.txt",
+  "jd": "content_marketer.txt",
+  "expectations": {
+    "overallRange": [0, 45],
+    "minRequiredMatchedRatio": 0.0,
+    "rationale": "Google Analytics and A/B Testing genuinely transfer, so this is not as far apart as the marketer-versus-backend case. Still well short of the band, and the ceiling of 45 records that two real matches in a seven-requirement job is not half a match."
+  }
+}

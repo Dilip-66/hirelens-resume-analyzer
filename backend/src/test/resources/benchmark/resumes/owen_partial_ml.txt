@@ -1,0 +1,32 @@
+Owen Reid
+
+Contact: owen.r@example.com | +1 312 555 0164 | Chicago, IL
+
+Summary:
+Full-stack developer with 3 years of experience on Java and React product teams.
+
+Technical Skills:
+
+* Java
+* Spring Boot
+* React
+* TypeScript
+* REST APIs
+* PostgreSQL
+* Docker
+* AWS
+* Git
+* JUnit
+
+Experience:
+Software Developer — Lakeshore Products | 2023–Present
+
+* Developed REST APIs using Java and Spring Boot.
+* Built React and TypeScript interfaces for customer accounts.
+* Worked with PostgreSQL databases and wrote SQL queries.
+* Used Docker for local development environments.
+* Deployed services to AWS.
+* Wrote JUnit tests for service layer code.
+
+Education:
+BSc Computer Science, University of Illinois Chicago, 2022

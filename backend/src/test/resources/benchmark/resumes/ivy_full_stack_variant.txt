@@ -1,0 +1,35 @@
+Ivy Chen
+
+Contact: ivy.chen@example.com | +1 646 555 0177 | New York, NY
+
+Summary:
+Full-stack developer with 3 years of experience across Java services and React front ends.
+
+Technical Skills:
+
+* Java
+* Spring Boot
+* PostgreSQL
+* React
+* TypeScript
+* REST APIs
+* Git/GitHub
+* Docker
+* AWS
+* Microservices
+* Redis
+* CI/CD
+* Python
+
+Experience:
+Software Developer — Cobalt Systems | 2023–Present
+
+* Developed REST APIs using Java and Spring Boot for internal tooling.
+* Built React and TypeScript dashboards for operations teams.
+* Designed PostgreSQL schemas and optimised SQL queries.
+* Dockerised services and deployed them on AWS.
+* Implemented CI/CD pipelines with GitHub Actions.
+* Reduced API response time by 25% through query optimisation.
+
+Education:
+BEng Software Engineering, Cornell University, 2022

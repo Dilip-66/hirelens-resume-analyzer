@@ -1,0 +1,27 @@
+Machine Learning Engineer
+
+Experience: 3–6 years
+
+Required Skills:
+
+* Strong programming skills in Python
+* Strong experience with machine learning
+* Experience with PyTorch or TensorFlow
+* Strong knowledge of SQL
+* Experience with data analysis
+* 3–6 years of software development experience
+
+Preferred Skills:
+
+* Kubernetes
+* Docker
+* Spark
+* A/B Testing
+
+Responsibilities:
+
+* Build and train machine learning models for production systems.
+* Deploy and maintain applications on cloud platforms.
+* Containerize applications using Docker.
+* Improve application performance.
+* Participate in code reviews.

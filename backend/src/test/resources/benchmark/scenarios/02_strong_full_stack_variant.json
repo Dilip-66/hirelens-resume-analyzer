@@ -1,0 +1,24 @@
+{
+  "id": "strong_full_stack_variant",
+  "group": "A_STRONG",
+  "description": "A different person covering the same stack, to check the score follows evidence and not phrasing.",
+  "resume": "ivy_full_stack_variant.txt",
+  "jd": "fullstack_junior_mid.txt",
+  "expectations": {
+    "overallRange": [
+      75,
+      100
+    ],
+    "requiredSkillsRange": [
+      72,
+      100
+    ],
+    "expectedExperienceStatus": "WITHIN_RANGE",
+    "minRequiredMatchedRatio": 0.85,
+    "expectNotExplicit": [
+      "Artificial intelligence or Machine learning",
+      "Code reviews"
+    ],
+    "rationale": "Same job description, different candidate, slightly different phrasing ('optimised' rather than 'optimized', 'Dockerised' rather than 'Dockerized'). Should land close to the primary validation case; a large gap would mean the engine is keying on one particular set of words."
+  }
+}

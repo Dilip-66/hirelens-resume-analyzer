@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Target, TrendingUp, AlertCircle } from "lucide-react";
+import { ArrowLeft, Target, AlertCircle } from "lucide-react";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorAlert from "@/components/ui/ErrorAlert";
 import SkillTag from "@/components/analysis/SkillTag";
@@ -136,7 +136,7 @@ export default function Skills() {
           </p>
         ) : (
           <div className="space-y-3">
-            {analysis.missingSkills.map((skill, i) => (
+            {analysis.missingSkills.map((skill) => (
               <div
                 key={skill}
                 className="flex items-center justify-between p-3 rounded-lg bg-amber-50 border border-amber-100"

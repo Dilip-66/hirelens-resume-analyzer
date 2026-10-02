@@ -1,0 +1,17 @@
+{
+  "id": "strong_project_evidence",
+  "group": "L_EVIDENCE",
+  "description": "A project-heavy resume, to check project text counts as real professional evidence.",
+  "resume": "project_heavy.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "minRequiredMatchedRatio": 0.8,
+    "expectStatus": {
+      "Java": "EXPLICIT_MATCH",
+      "Spring Boot": "EXPLICIT_MATCH",
+      "PostgreSQL": "EXPLICIT_MATCH",
+      "Docker": "EXPLICIT_MATCH"
+    },
+    "rationale": "The evidence for the Java and Spring requirements lives in the Projects section rather than in a role. Project lines are real applied work and must count, but the candidate only has about two years of dated employment against a 3-5 year band, so the experience dimension is expected to pull the overall down."
+  }
+}

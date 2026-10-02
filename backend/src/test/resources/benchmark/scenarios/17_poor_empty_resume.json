@@ -1,0 +1,12 @@
+{
+  "id": "poor_vague_resume",
+  "group": "E_POOR",
+  "description": "A resume with no extractable evidence at all.",
+  "resume": "empty_ish.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "overallRange": [0, 20],
+    "minRequiredMatchedRatio": 0.0,
+    "rationale": "Nothing is stated, so nothing can be evidenced. The only correct output is near zero, and the wording throughout has to be 'not explicitly mentioned' rather than any claim about the person."
+  }
+}

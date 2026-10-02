@@ -1,0 +1,31 @@
+Senior Platform Engineer
+
+Experience: 6–10 years
+
+Required Skills:
+
+* Strong experience with Kubernetes
+* Strong experience with Terraform
+* Strong experience with AWS
+* Strong experience with Docker
+* Strong experience with Linux
+* Experience with infrastructure as code
+* Strong knowledge of CI/CD pipelines
+* 6–10 years of software development experience
+
+Preferred Skills:
+
+* Prometheus
+* Grafana
+* Bash
+* Ansible
+* Python
+
+Responsibilities:
+
+* Operate and scale Kubernetes platforms on AWS.
+* Build and maintain infrastructure as code with Terraform.
+* Design and implement CI/CD pipelines.
+* Improve deployment reliability and reduce incident response time.
+* Participate in code reviews.
+* Write clean, maintainable, and scalable code.

@@ -1,0 +1,31 @@
+Maya Subramanian
+
+Contact: maya.s@example.com | +91 98765 43210 | Bengaluru, India
+
+Summary:
+Machine learning engineer shipping recommendation and ranking models to production.
+
+Technical Skills:
+
+* Python
+* PyTorch
+* TensorFlow
+* scikit-learn
+* pandas
+* SQL
+* Spark
+* Docker
+* Kubernetes
+* AWS
+* MLOps
+
+Experience:
+Machine Learning Engineer — Sift Media | 2021–Present
+
+* Built a PyTorch ranking model that improved recommendation CTR by 12%.
+* Deployed models to production with Docker and Kubernetes on AWS.
+* Ran A/B tests to validate model changes against 40% of traffic.
+* Built Spark pipelines over 2TB of event data for feature engineering.
+
+Education:
+MSc Machine Learning, Indian Institute of Science, 2021

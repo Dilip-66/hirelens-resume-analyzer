@@ -1,0 +1,32 @@
+Vera Lindqvist
+
+Contact: vera.l@example.com | +46 70 1234567 | Stockholm, Sweden
+
+Summary:
+Site reliability engineer with 6 years running Kubernetes platforms on AWS at scale.
+
+Technical Skills:
+
+* Kubernetes
+* Terraform
+* AWS
+* Docker
+* Linux
+* Bash
+* Prometheus
+* Grafana
+* Ansible
+* Python
+* CI/CD
+
+Experience:
+Site Reliability Engineer — Nordscale | 2020–Present
+
+* Operated 900-node Kubernetes clusters on AWS across three regions.
+* Built Terraform modules that cut environment provisioning from days to hours.
+* Reduced mean time to recovery from 47 minutes to 9 minutes.
+* Wrote Python and Bash automation replacing 60 manual runbook steps.
+* Introduced Prometheus and Grafana dashboards for SLO-based alerting.
+
+Education:
+MSc Computer Science, KTH Royal Institute of Technology, 2020

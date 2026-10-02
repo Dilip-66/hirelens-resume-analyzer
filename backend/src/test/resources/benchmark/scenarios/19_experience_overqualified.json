@@ -1,0 +1,20 @@
+{
+  "id": "experience_overqualified",
+  "group": "F_EXPERIENCE",
+  "description": "Seven years against a 1-3 year band, with the stack to match.",
+  "resume": "tom_backend.txt",
+  "jd": "fullstack_junior_mid.txt",
+  "expectations": {
+    "experienceRange": [
+      85,
+      100
+    ],
+    "expectedExperienceStatus": "ABOVE_RANGE",
+    "overallRange": [
+      30,
+      100
+    ],
+    "minRequiredMatchedRatio": 0.6,
+    "rationale": "Exceeding a stated maximum is not a shortfall: a seven-year engineer against a 1-3 year band is stronger than the band, not mismatched by it, so experience is full credit with ABOVE_RANGE. The overall band was originally 55-100 and the benchmark proved that wrong: this CV has no React, JavaScript or TypeScript at all, and the required-skills dimension lands at 48. A backend specialist against a full-stack role genuinely scores in the forties. Corrected in CALIBRATION.md. The experience range tops out below 100 because Tom states no figure, so the engine estimates from his dated roles and holds an inferred number to a lower ceiling. Arjun, who does state 2.5 years, still scores 100 on this dimension - that pair is the point."
+  }
+}

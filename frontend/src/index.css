@@ -56,6 +56,13 @@ html {
   .stagger-6 { animation-delay: 0.6s; opacity: 0; }
 }
 
+/* Indeterminate progress sweep for the analysis loading state. Slow and
+   low-contrast on purpose - it should read as "working", not as urgency. */
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
 .gradient-hero {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #e0e7ff 100%);
 }
@@ -69,4 +76,38 @@ html {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Printing the report ("Download Report" runs window.print, so the browser's
+   own save-as-PDF is used rather than adding a PDF pipeline to the frontend).
+   The dashboard shell is a fixed-height scroll container, which prints as one
+   clipped page unless it is relaxed here. */
+@media print {
+  html,
+  body,
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+    background: #ffffff;
+  }
+
+  [data-app-shell] {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  [data-app-main] {
+    overflow: visible !important;
+    padding-bottom: 0 !important;
+  }
+
+  [data-report-surface] {
+    max-width: none !important;
+    padding-top: 0 !important;
+  }
+
+  .report-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }

@@ -1,0 +1,25 @@
+Dave Okonkwo
+
+Contact: dave.o@example.com | +1 206 555 0110 | Seattle, WA
+
+Technical Skills:
+
+* Docker
+* Kubernetes
+* Jenkins
+* Git
+* Bash
+* Ansible
+* Linux
+* Prometheus
+
+Experience:
+DevOps Engineer — Rainier Systems | 2021–Present
+
+* Containerised services with Docker and deployed them to Kubernetes.
+* Built Jenkins pipelines for build, test and release.
+* Wrote Ansible playbooks for environment provisioning.
+* Added Prometheus monitoring for internal services.
+
+Education:
+BS Information Technology, University of Washington, 2021

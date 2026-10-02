@@ -1,0 +1,19 @@
+{
+  "id": "weak_junior_for_ml_engineer",
+  "group": "D_WEAK",
+  "description": "A junior developer against an ML engineering role.",
+  "resume": "rita_junior.txt",
+  "jd": "ml_engineer.txt",
+  "expectations": {
+    "overallRange": [
+      0,
+      45
+    ],
+    "minRequiredMatchedRatio": 0.0,
+    "expectNotExplicit": [
+      "Machine learning",
+      "PyTorch or TensorFlow"
+    ],
+    "rationale": "Python is real and SQL is adjacent, but there is no machine learning, no model framework and no data work. The upper bound of 45 keeps a scripting-in-Python CV from reading as a partial ML match."
+  }
+}

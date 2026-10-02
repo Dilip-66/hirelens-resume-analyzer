@@ -1,12 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, LogOut } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/upload", label: "Upload" },
-  { to: "/history", label: "Analyses" },
+  { to: "/history", label: "Analysis Report" },
 ];
 
 export default function Navbar() {

@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
+  Sparkles,
   Upload,
   History,
   Settings,
@@ -10,11 +11,14 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
+import { useAiAssistant } from "@/contexts/AiAssistantContext";
 
 const sidebarLinks = [
+  { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { to: "", icon: Sparkles, label: "AI Assistance", action: "ai" as const },
   { to: "/upload", icon: Upload, label: "Upload Resume" },
-  { to: "/history", icon: History, label: "My Analyses" },
+  { to: "/history", icon: History, label: "Analysis Report" },
   { to: "/settings", icon: Settings, label: "Settings" },
 ];
 
@@ -22,6 +26,7 @@ export default function Sidebar() {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const { user, logout } = useAuth();
+  const { openPicker } = useAiAssistant();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -33,7 +38,7 @@ export default function Sidebar() {
     <>
       <aside
         className={cn(
-          "hidden lg:flex flex-col border-r bg-white transition-all duration-300",
+          "hidden lg:flex flex-col border-r bg-white transition-all duration-300 print:hidden",
           collapsed ? "w-16" : "w-60"
         )}
       >
@@ -61,20 +66,37 @@ export default function Sidebar() {
         <nav className="flex-1 px-2 py-4 space-y-1">
           {sidebarLinks.map((link) => {
             const Icon = link.icon;
-            const isActive = location.pathname === link.to;
+            const isActive = !link.action && location.pathname === link.to;
+            const className = cn(
+              "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              isActive
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent",
+              collapsed && "justify-center px-2"
+            );
+
+            // "AI Assistance" is an action, not a destination, so it renders as
+            // a button that opens the assistant in place.
+            if (link.action === "ai") {
+              return (
+                <button
+                  key={link.label}
+                  type="button"
+                  onClick={() => {
+                    openPicker();
+                    if (collapsed) setCollapsed(false);
+                  }}
+                  className={className}
+                  title={collapsed ? link.label : undefined}
+                >
+                  <Icon className="h-5 w-5 shrink-0" />
+                  {!collapsed && <span>{link.label}</span>}
+                </button>
+              );
+            }
+
             return (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent",
-                  collapsed && "justify-center px-2"
-                )}
-                title={collapsed ? link.label : undefined}
-              >
+              <Link key={link.to} to={link.to} className={className}>
                 <Icon className="h-5 w-5 shrink-0" />
                 {!collapsed && <span>{link.label}</span>}
               </Link>
@@ -102,21 +124,35 @@ export default function Sidebar() {
         </div>
       </aside>
 
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t px-4 py-2 flex items-center justify-around">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t px-4 py-2 flex items-center justify-around print:hidden">
         {sidebarLinks.map((link) => {
           const Icon = link.icon;
-          const isActive = location.pathname === link.to;
+          const isActive = !link.action && location.pathname === link.to;
+          const className = cn(
+            "flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors",
+            isActive ? "text-primary" : "text-muted-foreground"
+          );
+          const shortLabel = link.label === "AI Assistance" ? "Ask AI" : link.label.split(" ")[0];
+
+          if (link.action === "ai") {
+            return (
+              <button
+                key={link.label}
+                type="button"
+                onClick={() => openPicker()}
+                className={cn(className, "hover:text-foreground")}
+                aria-label="Open AI Assistance"
+              >
+                <Icon className="h-5 w-5" />
+                <span>{shortLabel}</span>
+              </button>
+            );
+          }
+
           return (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={cn(
-                "flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors",
-                isActive ? "text-primary" : "text-muted-foreground"
-              )}
-            >
+            <Link key={link.to} to={link.to} className={className}>
               <Icon className="h-5 w-5" />
-              <span>{link.label.split(" ")[0]}</span>
+              <span>{shortLabel}</span>
             </Link>
           );
         })}

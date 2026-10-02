@@ -1,0 +1,19 @@
+{
+  "id": "strong_but_no_ai",
+  "group": "B_STRONG_IMPERFECT",
+  "description": "Meets the whole required stack, no AI/ML and no Python.",
+  "resume": "ivy_full_stack_variant.txt",
+  "jd": "fullstack_junior_mid.txt",
+  "expectations": {
+    "overallRange": [
+      70,
+      100
+    ],
+    "minRequiredMatchedRatio": 0.9,
+    "expectNotExplicit": [
+      "Artificial intelligence or Machine learning",
+      "Code reviews"
+    ],
+    "rationale": "All eleven required skills are met, so the preferred-skills gap must barely register. The lower bound of 70 is the calibration assertion that matters: if losing two preferred skills drops this below 70 the preferred category is buying too much of the overall score."
+  }
+}

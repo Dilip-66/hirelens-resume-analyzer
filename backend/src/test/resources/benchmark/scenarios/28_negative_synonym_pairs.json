@@ -1,0 +1,13 @@
+{
+  "id": "negative_synonym_pairs",
+  "group": "G_SEMANTIC",
+  "description": "Requirements written to collide with related but different technologies.",
+  "resume": "dave_devops.txt",
+  "jd": "negative_pairs.txt",
+  "expectations": {
+    "minRequiredMatchedRatio": 0.1,
+    "forbidSatisfiedTerms": ["AZURE", "MYSQL", "REACT_NATIVE", "DEEP_LEARNING", "ANGULAR"],
+    "expectNotExplicit": ["Azure", "MySQL"],
+    "rationale": "Dave has Docker, Kubernetes, AWS and JavaScript. The job also asks for Azure and MySQL, which are different products, and its preferred skills name React Native, Deep Learning and Angular. None of those may be satisfied by the technology Dave actually has. This is the scenario that would catch a synonym table quietly collapsing related technologies into each other."
+  }
+}

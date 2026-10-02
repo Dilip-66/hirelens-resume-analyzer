@@ -1,0 +1,26 @@
+Oliver Grant
+
+Contact: oliver.g@example.com | +44 7700 900456 | Manchester, UK
+
+Summary:
+Platform engineer focused on containerisation and continuous delivery.
+
+Technical Skills:
+
+* Docker
+* Kubernetes
+* CI/CD
+* GitHub Actions
+* Git
+* AWS
+* EC2
+* S3
+* Terraform
+
+Experience:
+Platform Engineer — Moorland Software | 2021–Present
+
+* Containerised applications with Docker and ran them on Kubernetes.
+* Built GitHub Actions CI/CD pipelines for build, test and release.
+* Deployed services to AWS EC2 and S3 with Terraform.
+* Cut deployment time from 40 minutes to 6 minutes.

@@ -1,0 +1,15 @@
+{
+  "id": "moderate_devops_for_backend",
+  "group": "C_MODERATE",
+  "description": "A DevOps engineer against a mid-level Java backend role: infrastructure overlaps, product code does not.",
+  "resume": "dave_devops.txt",
+  "jd": "java_backend_mid.txt",
+  "expectations": {
+    "overallRange": [
+      5,
+      35
+    ],
+    "minRequiredMatchedRatio": 0.15,
+    "rationale": "Docker, CI/CD, Git and microservices-adjacent language transfer; Java, Spring Boot, PostgreSQL and SQL do not, and the role's core is writing backend services. The original 20-60 band assumed a shared vocabulary of four terms was half a match. Corrected in CALIBRATION.md."
+  }
+}

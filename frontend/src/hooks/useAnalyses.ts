@@ -1,42 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
+import { useContext } from "react";
 import {
-  listAnalyses,
-  runAnalysis as runAnalysisApi,
-} from "@/services/analysisService";
-import type { AnalysisResponse } from "@/types/analysis";
+  AnalysesContext,
+  type AnalysesContextValue,
+} from "@/contexts/analyses-context";
 
-export function useAnalyses() {
-  const [analyses, setAnalyses] = useState<AnalysisResponse[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchAnalyses = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const data = await listAnalyses();
-      setAnalyses(data);
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to load analyses"
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchAnalyses();
-  }, [fetchAnalyses]);
-
-  const run = async (
-    resumeId: string,
-    jobDescriptionId: string
-  ): Promise<AnalysisResponse> => {
-    const result = await runAnalysisApi(resumeId, jobDescriptionId);
-    await fetchAnalyses();
-    return result;
-  };
-
-  return { analyses, loading, error, run, refresh: fetchAnalyses };
+/**
+ * Reads the shared analysis list.
+ *
+ * <p>Lives here rather than in the provider so every existing call site keeps
+ * importing from `@/hooks/useAnalyses` unchanged, while all of them share the
+ * single list held by `AnalysesProvider` - previously each consumer kept its own
+ * copy and issued its own `GET /api/analyses`.
+ */
+export function useAnalyses(): AnalysesContextValue {
+  const ctx = useContext(AnalysesContext);
+  if (!ctx) {
+    throw new Error("useAnalyses must be used within an AnalysesProvider");
+  }
+  return ctx;
 }

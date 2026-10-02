@@ -1,0 +1,12 @@
+{
+  "id": "soft_requirements_not_claimed",
+  "group": "J_SOFT",
+  "description": "A backend role whose soft requirements the resume never addresses.",
+  "resume": "noah_junior.txt",
+  "jd": "java_backend_junior.txt",
+  "expectations": {
+    "expectNotExplicit": ["Code reviews"],
+    "overallRange": [0, 100],
+    "rationale": "The junior Java role names code reviews as a duty. A resume that never mentions it must report it as not explicitly mentioned, and must not infer it from the fact that the candidate works in a team. Whether the engine over-claims here is asserted precisely in the unit tests."
+  }
+}

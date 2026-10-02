@@ -1,6 +1,7 @@
 package com.resumerag.controller;
 
 import com.resumerag.dto.ResumeResponse;
+import com.resumerag.exception.ResourceNotFoundException;
 import com.resumerag.pipeline.RagPipelineOrchestrator;
 import com.resumerag.repository.ResumeRepository;
 import com.resumerag.security.CurrentUser;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/resumes")
@@ -39,9 +39,9 @@ public class ResumeController {
     @GetMapping("/{id}")
     public ResumeResponse get(@PathVariable java.util.UUID id) {
         var r = resumeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Resume not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Resume not found"));
         if (!r.getUserId().equals(currentUser.id())) {
-            throw new SecurityException("Not authorized to view this resume");
+            throw new ResourceNotFoundException("Resume not found");
         }
         return ResumeResponse.from(r);
     }

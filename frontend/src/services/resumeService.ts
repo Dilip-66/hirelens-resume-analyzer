@@ -1,12 +1,18 @@
 import apiClient from "@/lib/api-client";
-import type { Resume, UploadResponse } from "@/types/analysis";
+import type { Resume } from "@/types/analysis";
 
-export async function uploadResume(file: File): Promise<UploadResponse> {
+// The backend returns the persisted Resume record for an upload, not a
+// separate upload envelope.
+export async function uploadResume(file: File): Promise<Resume> {
   const formData = new FormData();
   formData.append("file", file);
-  const { data } = await apiClient.post<UploadResponse>("/api/resumes", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+  // No explicit Content-Type. The boundary is generated when the body is
+  // serialised, and only the client that serialises it can supply one: sending
+  // a hand-written "multipart/form-data" has no boundary, the backend cannot
+  // parse the body, and the upload fails with a bare server error. axios clears
+  // the header for FormData bodies, but relying on that is how this breaks
+  // again the day the HTTP client is swapped.
+  const { data } = await apiClient.post<Resume>("/api/resumes", formData);
   return data;
 }
 

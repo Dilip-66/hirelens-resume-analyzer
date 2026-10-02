@@ -1,0 +1,15 @@
+{
+  "id": "overqualified_sre_for_junior_jd",
+  "group": "F_EXPERIENCE",
+  "description": "A six-year SRE against a role asking for 1-3 years. Strong evidence, over the band.",
+  "resume": "vera_sre.txt",
+  "jd": "fullstack_junior_mid.txt",
+  "expectations": {
+    "overallRange": [
+      10,
+      45
+    ],
+    "minRequiredMatchedRatio": 0.15,
+    "rationale": "Git and CI/CD are the only required skills this CV meets, plus cloud-adjacent language. The original 0.25 minimum assumed more overlap than exists."
+  }
+}

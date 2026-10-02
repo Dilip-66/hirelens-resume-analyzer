@@ -1,169 +1,132 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import {
-  Upload,
-  FileText,
-  Clock,
+  Award,
   BarChart3,
-  ArrowRight,
+  FileText,
+  ListChecks,
   TrendingUp,
 } from "lucide-react";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import StatsGrid, { type StatDefinition } from "@/components/dashboard/StatsGrid";
+import NewAnalysisCard from "@/components/dashboard/NewAnalysisCard";
+import RecentAnalyses from "@/components/dashboard/RecentAnalyses";
+import ResumeInsights from "@/components/dashboard/ResumeInsights";
+import RecommendedActions from "@/components/dashboard/RecommendedActions";
+import HowItWorks from "@/components/dashboard/HowItWorks";
+import AiAssistanceCard from "@/components/ai-assistance/AiAssistanceCard";
+import ErrorAlert from "@/components/ui/ErrorAlert";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { listAnalyses } from "@/services/analysisService";
-import { listResumes } from "@/services/resumeService";
-import type { AnalysisResponse } from "@/types/analysis";
-import type { Resume } from "@/types/analysis";
-import { formatDate, getScoreColor, getScoreBgColor, getScoreBorderColor } from "@/lib/utils";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAnalyses } from "@/hooks/useAnalyses";
 
 export default function Dashboard() {
-  const { user } = useAuth();
-  const [analyses, setAnalyses] = useState<AnalysisResponse[]>([]);
-  const [resumes, setResumes] = useState<Resume[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { analyses, loading, error, refresh } = useAnalyses();
 
-  useEffect(() => {
-    Promise.all([
-      listAnalyses().catch(() => []),
-      listResumes().catch(() => []),
-    ])
-      .then(([a, r]) => { setAnalyses(a); setResumes(r); })
-      .catch((err) => setError(err instanceof Error ? err.message : "Failed to load"))
-      .finally(() => setLoading(false));
-  }, []);
+  const stats: StatDefinition[] = useMemo(() => {
+    const empty = analyses.length === 0;
+
+    // Resumes Analyzed counts distinct resumes that have at least one report,
+    // rather than total uploads, so re-analysing the same CV cannot inflate it.
+    const distinctResumes = new Set(analyses.map((a) => a.resumeId)).size;
+
+    const avg = empty
+      ? 0
+      : Math.round(
+          analyses.reduce((sum, a) => sum + a.matchScore, 0) / analyses.length
+        );
+
+    const strong = analyses.filter((a) => a.matchScore >= 90).length;
+    const improvements = analyses.reduce(
+      (sum, a) => sum + a.missingSkills.length,
+      0
+    );
+
+    return [
+      {
+        label: "Resumes Analyzed",
+        value: empty ? "—" : String(distinctResumes),
+        hint: empty
+          ? "Upload a resume to get started"
+          : `Across ${analyses.length} ${analyses.length === 1 ? "report" : "reports"}`,
+        icon: FileText,
+        chip: "bg-primary/10 text-primary",
+      },
+      {
+        label: "Average Match Score",
+        value: empty ? "—" : `${avg}%`,
+        hint: empty
+          ? "No scores to average yet"
+          : avg >= 70
+          ? "On a strong footing overall"
+          : avg >= 40
+          ? "Some room to strengthen"
+          : "Consider tailoring your resume",
+        icon: TrendingUp,
+        chip: "bg-emerald-100 text-emerald-700",
+      },
+      {
+        label: "Strong Matches",
+        value: empty ? "—" : String(strong),
+        hint: empty
+          ? "Reports scoring 90% or higher"
+          : "Reports scoring 90% or higher",
+        icon: Award,
+        chip: "bg-blue-100 text-blue-700",
+      },
+      {
+        label: "Improvements Suggested",
+        value: empty ? "—" : String(improvements),
+        hint: empty
+          ? "Skills your target roles ask for"
+          : "Skills your target roles ask for",
+        icon: ListChecks,
+        chip: "bg-amber-100 text-amber-700",
+      },
+    ];
+  }, [analyses]);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <LoadingSpinner message="Loading dashboard..." />
+      <div className="flex min-h-[400px] items-center justify-center">
+        <LoadingSpinner message="Loading your dashboard..." />
       </div>
     );
   }
 
-  const avgScore = analyses.length > 0
-    ? Math.round(analyses.reduce((sum, a) => sum + a.matchScore, 0) / analyses.length)
-    : 0;
-
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-bold text-foreground">
-          Welcome back{user?.name ? `, ${user.name}` : ""}
-        </h1>
-        <p className="mt-2 text-muted-foreground">
-          Here's an overview of your resume analysis journey.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="rounded-xl border bg-white p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-              <FileText className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">{resumes.length}</p>
-              <p className="text-xs text-muted-foreground">Resumes Uploaded</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-xl border bg-white p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-              <BarChart3 className="h-5 w-5 text-emerald-600" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">{analyses.length}</p>
-              <p className="text-xs text-muted-foreground">Analyses Completed</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-xl border bg-white p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
-              <TrendingUp className="h-5 w-5 text-amber-600" />
-            </div>
-            <div>
-              <p className={`text-2xl font-bold ${avgScore > 0 ? getScoreColor(avgScore) : "text-muted-foreground"}`}>
-                {avgScore > 0 ? `${avgScore}%` : "--"}
-              </p>
-              <p className="text-xs text-muted-foreground">Average Match Score</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between">
-        <h2 className="font-display text-lg font-semibold text-foreground">Recent Analyses</h2>
-        <Link to="/upload" className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
-          New Analysis <ArrowRight className="h-4 w-4" />
-        </Link>
-      </div>
+    <div className="space-y-8 pb-4">
+      <DashboardHeader hasAnalyses={analyses.length > 0} />
 
       {error && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
-          {error}
-        </div>
+        <ErrorAlert
+          message={error}
+          onDismiss={() => {
+            void refresh();
+          }}
+        />
       )}
 
-      {analyses.length === 0 ? (
-        <div className="rounded-xl border bg-white p-12 shadow-sm text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-100 mb-4">
-            <BarChart3 className="h-8 w-8 text-slate-400" />
-          </div>
-          <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-            No analyses yet
-          </h3>
-          <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
-            Upload your first resume to start getting AI-powered insights.
-          </p>
-          <Link
-            to="/upload"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white hover:bg-primary/90 transition-colors"
-          >
-            <Upload className="h-4 w-4" />
-            Upload Resume
-          </Link>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {analyses.slice(0, 10).map((analysis) => (
-            <Link
-              key={analysis.id}
-              to={`/analysis/${analysis.id}`}
-              className="block rounded-xl border bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-primary/20 group"
-            >
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 shrink-0 group-hover:bg-primary/20 transition-colors">
-                  <FileText className="h-5 w-5 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-display text-sm font-semibold text-foreground truncate">
-                    Analysis Report
-                  </h3>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {formatDate(analysis.createdAt)}
-                    </span>
-                    <span>{analysis.matchedSkills.length} skills matched</span>
-                    <span>{analysis.missingSkills.length} missing</span>
-                  </div>
-                </div>
-                <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-1 text-sm font-bold ${getScoreBgColor(
-                    analysis.matchScore
-                  )} ${getScoreColor(
-                    analysis.matchScore
-                  )} border ${getScoreBorderColor(analysis.matchScore)}`}
-                >
-                  {analysis.matchScore}%
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
+      <StatsGrid stats={stats} />
+
+      <NewAnalysisCard />
+
+      <RecentAnalyses analyses={analyses} />
+
+      <AiAssistanceCard />
+
+      {analyses.length > 0 && (
+        <>
+          <ResumeInsights analyses={analyses} />
+          <RecommendedActions analyses={analyses} />
+        </>
+      )}
+
+      <HowItWorks />
+
+      {analyses.length === 0 && (
+        <p className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+          <BarChart3 className="h-3.5 w-3.5" />
+          Insights appear here after your first analysis.
+        </p>
       )}
     </div>
   );

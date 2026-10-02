@@ -1,0 +1,31 @@
+Priya Shah
+
+Contact: priya.shah@example.com | +44 7700 900123 | London, UK
+
+Summary:
+Frontend developer with 4 years of experience building accessible, responsive web applications.
+
+Technical Skills:
+
+* React
+* JavaScript
+* TypeScript
+* HTML
+* CSS
+* Sass
+* Webpack
+* Jest
+* Git
+* REST APIs
+
+Experience:
+Frontend Developer — Brightwave Digital | 2022–Present
+
+* Built responsive React and TypeScript dashboards used by 12,000 monthly users.
+* Developed REST APIs consumed by three client applications.
+* Partnered with backend engineers on API contracts and integration.
+* Improved page load time by 45% through code splitting and lazy loading.
+* Introduced Jest component testing across three product teams.
+
+Education:
+BSc Computer Science, University of Manchester, 2021

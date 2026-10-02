@@ -1,0 +1,23 @@
+Machine Learning Researcher
+
+Experience: 2–5 years
+
+Required Skills:
+
+* Strong programming skills in Python
+* Strong experience with machine learning
+* Experience with deep learning
+* Strong knowledge of SQL
+* 2–5 years of software development experience
+
+Preferred Skills:
+
+* PyTorch
+* pandas
+
+Responsibilities:
+
+* Design and evaluate machine learning experiments.
+* Analyze model performance and document findings.
+* Write clean, maintainable, and scalable code.
+* Participate in code reviews.

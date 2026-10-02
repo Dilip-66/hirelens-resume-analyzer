@@ -1,0 +1,21 @@
+Cloud Engineer
+
+Experience: 3–6 years
+
+Required Skills:
+
+* Advanced AWS deployment
+* Strong experience with AWS EC2 / S3
+* Experience with Docker
+* Strong knowledge of CI/CD pipelines
+* 3–6 years of software development experience
+
+Preferred Skills:
+
+* Terraform
+
+Responsibilities:
+
+* Deploy and maintain applications on cloud platforms.
+* Containerize applications using Docker.
+* Improve deployment reliability.

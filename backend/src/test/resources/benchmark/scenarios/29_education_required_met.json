@@ -1,0 +1,12 @@
+{
+  "id": "education_cs_required_met",
+  "group": "L_EVIDENCE",
+  "description": "A CS degree against a role that requires one.",
+  "resume": "noah_junior.txt",
+  "jd": "education_cs_required.txt",
+  "expectations": {
+    "expectStatus": { "Java": "EXPLICIT_MATCH" },
+    "overallRange": [0, 100],
+    "rationale": "The role requires a Bachelor's in Computer Science and this resume states exactly that, so the education dimension should score highly once it is implemented. Deliberately no overall range: introducing the education dimension is expected to move this scenario, and pinning a total before the category exists would make the implementation look like a regression when it is the intended change."
+  }
+}
