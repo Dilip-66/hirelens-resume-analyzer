@@ -122,8 +122,25 @@ public class RequirementNormalizationService {
             // "CD" is a requirement, so it stays a single term.
             "/");
 
-    /** Guards against a pathological connector chain turning into dozens of terms. */
-    private static final int MAX_SPLIT_DEPTH = 3;
+    /**
+     * The most terms one requirement line may yield.
+     *
+     * <p>This replaced a depth limit, and the reason is a concrete loss of
+     * content. A candidate-profile sentence - "The ideal candidate should be able
+     * to understand business requirements, design technical solutions, write
+     * reliable code, troubleshoot problems, and work effectively across frontend
+     * and backend technologies" - nests its connectors deeper than any fixed
+     * depth allows. At the limit the recursion returned the fragment
+     * <em>unsplit</em>, so "write reliable code, troubleshoot problems" arrived
+     * as one unit; the vocabulary then matched "troubleshoot" against it and the
+     * whole fragment resolved to DEBUGGING, silently discarding the requirement
+     * sitting in the same words.
+     *
+     * <p>Bounding on term count instead is the same protection against runaway
+     * splitting - each accepted split strictly increases the count, so recursion
+     * cannot exceed the cap - without ever returning an un-split remainder.
+     */
+    private static final int MAX_TERMS = 8;
 
 
     /**
@@ -131,6 +148,16 @@ public class RequirementNormalizationService {
      *
      * <p>"and" and "or" appear here as well as in the marker lists: a fragment
      * must be able to survive on its own for a split to be legitimate.
+     *
+     * <p>The second group is the grammar of a candidate-profile sentence. These
+     * words carry no requirement, and leaving them in did real damage: "The ideal
+     * candidate should be able to understand business requirements" reduced to the
+     * twelve-word phrase {@code PHRASE_IDEAL_SHOULD_BE_ABLE_UNDERSTAND_BUSINESS_REQUIREMENTS},
+     * so the concept actually being asked for - business requirements - was welded
+     * to seven words of framing and could never be matched by any resume, however
+     * explicitly it answered the question. A phrase requirement is matched on its
+     * own words, so every word of framing here is a word of evidence the engine
+     * can never find.
      */
     private static final Set<String> STOP_WORDS = Set.of(
             "skills", "skill", "experience", "experiences", "knowledge", "understanding",
@@ -144,7 +171,14 @@ public class RequirementNormalizationService {
             "environment", "environments", "tool", "tools", "technologies", "technology",
             "stack", "programming", "program", "development", "developing", "developer",
             "excellent", "great", "team", "teams", "including", "include", "includes",
-            "such", "like", "etc", "new", "role", "candidate", "candidates"
+            "such", "like", "etc", "new", "role", "candidate", "candidates",
+            // Profile-sentence grammar. Never a requirement, and each one that
+            // survives into a phrase key is a word of evidence that cannot be
+            // matched on a resume.
+            "should", "shall", "be", "being", "been", "was", "were", "able", "can",
+            "could", "would", "may", "might", "look", "looking", "looks",
+            "ideal", "ideally", "someone", "somebody", "person", "want", "wants",
+            "willing", "ensure", "ensuring"
     );
 
     public RequirementNormalizationService() {
@@ -278,11 +312,23 @@ public class RequirementNormalizationService {
      * responsibility, not two.
      */
     private List<String> splitFragments(String cleaned) {
-        return splitRecursively(cleaned, 0);
+        return splitRecursively(cleaned);
     }
 
-    private List<String> splitRecursively(String text, int depth) {
-        if (depth >= MAX_SPLIT_DEPTH || text == null || text.isBlank()) {
+    /**
+     * Splits while there is room for another term.
+     *
+     * <p>The budget is carried down the recursion and shared across the branches,
+     * so the guard is on how many requirements one line may become rather than on
+     * how deeply the tree happens to nest. Every accepted split consumes at least
+     * one unit of budget and hands back at least one fragment, so this terminates.
+     */
+    private List<String> splitRecursively(String text) {
+        return splitRecursively(text, MAX_TERMS);
+    }
+
+    private List<String> splitRecursively(String text, int budget) {
+        if (budget <= 1 || text == null || text.isBlank()) {
             return List.of(text == null ? "" : text.trim());
         }
         String padded = " " + text + " ";
@@ -296,9 +342,14 @@ public class RequirementNormalizationService {
                 if (left.indexOf("and/or") >= 0 || !isRequirementLike(left) || !isRequirementLike(right)) {
                     continue;
                 }
+                // Each fragment costs a term of the budget it was handed, so a
+                // branch may always try to split unless only enough budget for a
+                // single fragment is left. Halving the budget instead starved the
+                // deeper side of a comma list and left it unsplit.
+                int forLeft = budget - 1;
                 List<String> parts = new ArrayList<>();
-                parts.addAll(splitRecursively(left.trim(), depth + 1));
-                parts.addAll(splitRecursively(right.trim(), depth + 1));
+                parts.addAll(splitRecursively(left.trim(), forLeft));
+                parts.addAll(splitRecursively(right.trim(), forLeft));
                 return parts;
             }
         }
@@ -405,7 +456,24 @@ public class RequirementNormalizationService {
         }
         String canonicalKey = "PHRASE_" + SynonymRegistry.normalizePhrase(content).toUpperCase(Locale.ROOT)
                 .replace(' ', '_');
-        return List.of(new NormalizedTerm(canonicalKey, display, List.of(display)));
+
+        // Matched on both the job description's full wording and its content words.
+        //
+        // <p>The two are not interchangeable, and using only the first makes the
+        // requirement unmatchable by any resume that answers it in the ordinary way.
+        // "The ideal candidate should be able to understand business requirements"
+        // has content words "understand business requirements"; a resume that writes
+        // "gathered business requirements from stakeholders" states the requirement
+        // plainly and still contains none of the seven framing words, so a pattern
+        // built from the whole sentence never fires. Using only the second would
+        // throw away the employer's own phrasing, which is the wording most likely
+        // to appear verbatim in a matching bullet.
+        List<String> patterns = new ArrayList<>();
+        patterns.add(display);
+        if (!display.equalsIgnoreCase(content)) {
+            patterns.add(content);
+        }
+        return List.of(new NormalizedTerm(canonicalKey, display, List.copyOf(patterns)));
     }
 
     /**

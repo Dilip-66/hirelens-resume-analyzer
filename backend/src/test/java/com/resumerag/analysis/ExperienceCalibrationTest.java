@@ -118,13 +118,13 @@ class ExperienceCalibrationTest {
         var result = analysisEngine().analyze(AnalysisEngineFixture.ARJUN_RESUME,
                 AnalysisEngineFixture.FULL_STACK_JD, null);
 
-        assertEquals(90, result.scored().overallScore(),
+        assertEquals(89, result.scored().overallScore(),
                 "this pair is the calibration reference; if it moves, every scenario's number is "
                         + "suspect and the change has to be justified in CALIBRATION.md");
-        assertEquals(MatchLabel.EXCELLENT_MATCH, result.scored().matchLabel());
+        assertEquals(MatchLabel.STRONG_MATCH, result.scored().matchLabel());
         assertEquals(89.9, result.scored().category(ScoreCategory.REQUIRED_SKILLS).score(), 0.05);
         assertEquals(100.0, result.scored().category(ScoreCategory.EXPERIENCE).score(), 0.05);
-        assertEquals(81.0, result.scored().category(ScoreCategory.RESPONSIBILITIES).score(), 0.05);
+        assertEquals(72.5, result.scored().category(ScoreCategory.RESPONSIBILITIES).score(), 0.05);
         assertEquals(85.6, result.scored().category(ScoreCategory.PREFERRED_SKILLS).score(), 0.05);
     }
 

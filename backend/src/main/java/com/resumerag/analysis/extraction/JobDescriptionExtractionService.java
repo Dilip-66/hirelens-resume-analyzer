@@ -60,6 +60,17 @@ public class JobDescriptionExtractionService {
             new Header("primary responsibilities|key responsibilities|main responsibilities|responsibilities|"
                     + "what you will do|what you'll do|your responsibilities|day to day|day-to-day|"
                     + "duties|job duties|the role", JdSection.RESPONSIBILITY),
+            // A candidate profile is a set of duties, not a separate kind of
+            // requirement, so it is read as a responsibility section. What matters
+            // here is only that the *label* is recognised: an unrecognised label
+            // falls through to the line classifier and becomes a requirement in its
+            // own right - "What We're Looking For" scored 0 against every resume,
+            // was reported as a gap, and was recommended to the candidate as
+            // something to go and add. A section heading is not a requirement.
+            new Header("what we are looking for|what we're looking for|who we are looking for|"
+                    + "who we're looking for|the ideal candidate|ideal candidate|ideal profile|"
+                    + "candidate profile|person specification|person spec|about the candidate|"
+                    + "who we need", JdSection.RESPONSIBILITY),
             new Header("experience|years of experience|seniority", JdSection.EXPERIENCE),
             new Header("education|educational requirements|qualifications|degree", JdSection.EDUCATION),
             new Header("soft skills|personal skills|qualities|personality|attributes", JdSection.SOFT_SKILL),

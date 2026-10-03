@@ -56,7 +56,7 @@ public class RequirementMatchingService {
      *                   first.
      */
     public RequirementMatch match(Requirement requirement, List<EvidenceCandidate> candidates) {
-        List<EvidenceCandidate> evidence = candidates == null ? List.of() : candidates;
+        List<EvidenceCandidate> evidence = supporting(candidates);
 
         if (evidence.isEmpty()) {
             return unsatisfied(requirement, EvidenceExplanationService.notMentioned(requirement));
@@ -82,9 +82,49 @@ public class RequirementMatchingService {
                 requirement.index(), requirement.name(), requirement.normalizedName(),
                 requirement.category(), requirement.importance(),
                 status, round(clamp(confidence)),
-                best.strength().level(), provenanceFor(best, satisfaction), displayEvidence(evidence),
+                best.strength().level(), provenanceFor(best, requirement, satisfaction), displayEvidence(evidence),
                 List.of(requirement.sourceText()),
-                EvidenceExplanationService.explain(requirement, status, best, shareOf(satisfaction)));
+                EvidenceExplanationService.explain(requirement, status, best, shareOf(requirement, satisfaction)));
+    }
+
+    /**
+     * The candidates strong enough to support a claim at all.
+     *
+     * <p>This is where "no evidence" stops meaning "the retrieval layer returned
+     * nothing". A semantic index returns the nearest chunks whether or not they are
+     * relevant - every resume has chunks and they are all somewhat wordy - so the
+     * classifier, not the retriever, has to decide what counts. It does that by
+     * strength: a candidate at {@link EvidenceStrength#WEAK} is a passage the engine
+     * itself labelled adjacent-at-best, and it arrives as
+     * {@link MatchProvenance#INFERRED}, meaning the engine connected it rather than
+     * finding the requirement named.
+     *
+     * <p>Dropping them here rather than in {@link #classify} is deliberate. If they
+     * were merely scored as zero, they would still be rendered on the report as the
+     * "evidence" for a requirement the report simultaneously says was never
+     * mentioned - a user has no way to tell that apart from a real finding. The
+     * adjacent passage is not withheld from the candidate; it simply is not evidence,
+     * and the recommendation list is where an unevidenced requirement still surfaces
+     * as something to add.
+     */
+    private List<EvidenceCandidate> supporting(List<EvidenceCandidate> candidates) {
+        if (candidates == null) {
+            return List.of();
+        }
+        return candidates.stream().filter(c -> !isAdjacencyOnly(c)).toList();
+    }
+
+    /**
+     * Evidence too weak to support any claim: inferred, and below contextual.
+     *
+     * <p>Only semantic hits reach {@code WEAK} - a cue is capped at contextual by
+     * construction, and a direct mention is at least a listed skill - so this is
+     * specifically the rule that stops low-similarity nearest-neighbour noise from
+     * becoming partial credit.
+     */
+    private boolean isAdjacencyOnly(EvidenceCandidate candidate) {
+        return candidate.provenance() == MatchProvenance.INFERRED
+                && candidate.strength().level() < EvidenceStrength.CONTEXTUAL.level();
     }
 
     /**
@@ -126,21 +166,32 @@ public class RequirementMatchingService {
      * <p>Tracked per term because "JavaScript and/or TypeScript" and "Git and
      * GitHub" are the same shape and opposite rules - the first is satisfied by
      * either language, the second only by both.
+     *
+     * <p>Two sets, not one, because "the requirement was named" and "something in
+     * the resume supports the requirement" are different claims and the classifier
+     * needs both. A cue that fires on a real line is support for its own term only:
+     * it says nothing about the other terms in the group.
      */
     private CompoundSatisfaction satisfactionFor(Requirement requirement, List<EvidenceCandidate> evidence) {
         List<NormalizedTerm> terms = requirement.normalization().terms();
-        Set<String> satisfied = new LinkedHashSet<>();
+        Set<String> named = new LinkedHashSet<>();
+        Set<String> supported = new LinkedHashSet<>();
         for (NormalizedTerm term : terms) {
-            boolean hasEvidence = evidence.stream()
+            boolean anySupporting = evidence.stream()
+                    .anyMatch(c -> term.displayName().equals(c.matchedOn()));
+            boolean directlyNamed = evidence.stream()
                     .filter(c -> c.provenance() == MatchProvenance.EXPLICIT)
                     .anyMatch(c -> term.displayName().equals(c.matchedOn())
                             && c.strength().level() >= EvidenceStrength.EXPLICIT_SKILL.level());
-            if (hasEvidence) {
-                satisfied.add(term.canonicalKey());
+            if (anySupporting) {
+                supported.add(term.canonicalKey());
+            }
+            if (directlyNamed) {
+                named.add(term.canonicalKey());
             }
         }
-        double ratio = terms.isEmpty() ? 0.0 : (double) satisfied.size() / terms.size();
-        return new CompoundSatisfaction(satisfied, ratio, terms.size());
+        double ratio = terms.isEmpty() ? 0.0 : (double) named.size() / terms.size();
+        return new CompoundSatisfaction(named, supported, ratio, terms.size());
     }
 
     /**
@@ -150,21 +201,23 @@ public class RequirementMatchingService {
      * <p>Three rules, each closing a specific way of over-claiming:
      *
      * <ul>
-     *   <li>A partly-evidenced compound requirement is {@code PARTIAL_MATCH},
-     *       however strong the evidence for the part that is there. "Git" on a
-     *       resume against "Familiarity with Git and GitHub" is half a finding.</li>
-     *   <li>A compound requirement with <em>nothing</em> directly evidenced is
-     *       {@code PARTIAL_MATCH} too - at most, related evidence was found.</li>
-     *   <li>Evidence the engine <em>inferred</em> can never be an explicit match.
-     *       Only a direct mention can be, because an explicit match is a claim
-     *       that the resume says the thing, and a cue the engine connected is not
-     *       that.</li>
+     *   <li>The requirement's <em>shape</em> never mints evidence. Only evidence
+     *       that survives {@link #supporting} gets here, and it is classified on its
+     *       own strength. "Code reviews and software development activities" against
+     *       a resume that never says either is silence, and a requirement that
+     *       happens to contain the word "and" does not turn silence into a finding.</li>
+     *   <li>A <b>conjunctive</b> compound with some terms named and others not is
+     *       {@code PARTIAL_MATCH}, however strong the evidence for the part that is
+     *       there. "Git" on a resume against "Git and GitHub" is half a finding.</li>
+     *   <li>A <b>disjunctive</b> compound is met by its first evidenced term.
+     *       "JavaScript and/or TypeScript" said one of the two is optional, and a
+     *       requirement that ignores the operator the job description wrote down
+     *       under-claims every candidate who met it.</li>
      * </ul>
      */
     private MatchStatus classify(EvidenceCandidate best, Requirement requirement,
                                  CompoundSatisfaction satisfaction) {
-        if (satisfaction.compound()
-                && (satisfaction.partial() || !satisfaction.anySatisfiedDirectly())) {
+        if (satisfaction.underSatisfied(requirement)) {
             return MatchStatus.PARTIAL_MATCH;
         }
         MatchStatus byStrength = statusForStrength(best.strength(), requirement.demand());
@@ -201,7 +254,7 @@ public class RequirementMatchingService {
             case NOT_EXPLICITLY_MENTIONED -> 0.0;
             case CONFLICT -> scoringConfiguration.getConflictConfidence();
         };
-        if (satisfaction.partial()) {
+        if (satisfaction.underSatisfied(requirement)) {
             // Scale by how much of the compound was found, but never to nothing:
             // the evidence that does exist is still evidence.
             base *= Math.max(scoringConfiguration.getCompoundPartialFloor(), satisfaction.satisfiedRatio());
@@ -213,16 +266,18 @@ public class RequirementMatchingService {
         return base;
     }
 
-    private EvidenceExplanationService.CompoundShare shareOf(CompoundSatisfaction satisfaction) {
-        return new EvidenceExplanationService.CompoundShare(
-                satisfaction.satisfied().size(), satisfaction.totalTerms());
+    private EvidenceExplanationService.CompoundShare shareOf(Requirement requirement,
+                                                             CompoundSatisfaction satisfaction) {
+        return EvidenceExplanationService.shareOf(requirement, satisfaction.named().size(),
+                satisfaction.totalTerms(), satisfaction.underSatisfied(requirement));
     }
 
-    private MatchProvenance provenanceFor(EvidenceCandidate best, CompoundSatisfaction satisfaction) {
+    private MatchProvenance provenanceFor(EvidenceCandidate best, Requirement requirement,
+                                          CompoundSatisfaction satisfaction) {
         if (best.provenance() == MatchProvenance.INFERRED) {
             return MatchProvenance.INFERRED;
         }
-        return satisfaction.partial() ? MatchProvenance.INFERRED : MatchProvenance.EXPLICIT;
+        return satisfaction.underSatisfied(requirement) ? MatchProvenance.INFERRED : MatchProvenance.EXPLICIT;
     }
 
     /**
@@ -342,16 +397,56 @@ public class RequirementMatchingService {
     }
 
     /**
-     * How much of a compound requirement the resume evidenced.
+     * How much of a compound requirement the resume evidenced, term by term.
      *
-     * @param satisfiedRatio fraction of terms with direct evidence, 0..1
-     * @param totalTerms     terms in the requirement
+     * @param named           terms the resume states outright
+     * @param supported       terms with any surviving evidence, direct or indirect
+     * @param satisfiedRatio fraction of terms named outright, 0..1
+     * @param totalTerms      terms in the requirement
      */
-    private record CompoundSatisfaction(Set<String> satisfied, double satisfiedRatio, int totalTerms) {
+    private record CompoundSatisfaction(Set<String> named, Set<String> supported,
+                                        double satisfiedRatio, int totalTerms) {
         /** True when the requirement has more than one term. */
         boolean compound() { return totalTerms > 1; }
-        boolean anySatisfiedDirectly() { return !satisfied.isEmpty(); }
-        /** True when some terms matched and others did not. */
-        boolean partial() { return totalTerms > 1 && !satisfied.isEmpty() && satisfiedRatio < 1.0; }
+        boolean anySupported() { return !supported.isEmpty(); }
+
+        /**
+         * Whether the job description required every term and the resume left at
+         * least one of them under-evidenced.
+         *
+         * <p>This is the <em>only</em> way a compound's shape can lower a match
+         * state, and it reads the operator rather than assuming conjunction.
+         *
+         * <p>Three cases, and the two it deliberately excludes matter more than the
+         * one it keeps:
+         *
+         * <ul>
+         *   <li><b>Conjunction, some terms named and others not.</b> Partial, however
+         *       strong the evidence for the part that is there. "Git" against "Git and
+         *       GitHub" is half a finding.</li>
+         *   <li><b>Conjunction, no term named but some supported by real indirect
+         *       evidence.</b> Partial too, and for the same underlying reason: the
+         *       group is conjunctive, one part has support, the other is silent.
+         *       "Debugging and application performance" against a quantified caching
+         *       improvement supports the performance half and says nothing about
+         *       debugging, which is not the same claim as satisfying the whole
+         *       responsibility.</li>
+         *   <li><b>A disjunction with one term evidenced - not partial.</b>
+         *       "JavaScript and/or TypeScript" is satisfied, because the employer
+         *       wrote that one is enough. Reading it as a partly-met conjunction
+         *       under-claims every candidate who met the requirement as written.</li>
+         *   <li><b>A conjunction with nothing supported at all - not partial.</b>
+         *       There is nothing to be partial about. "Code reviews and software
+         *       development activities" against a resume that mentions neither is
+         *       silence, and a requirement that happens to contain the word "and"
+         *       must not turn silence into a finding with a confidence attached.</li>
+         * </ul>
+         */
+        boolean underSatisfied(Requirement requirement) {
+            if (!compound() || !requirement.normalization().requiresAllTerms()) {
+                return false;
+            }
+            return named.isEmpty() ? anySupported() : satisfiedRatio < 1.0;
+        }
     }
 }

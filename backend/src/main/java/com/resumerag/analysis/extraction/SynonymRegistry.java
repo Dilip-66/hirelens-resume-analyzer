@@ -735,12 +735,13 @@ public final class SynonymRegistry {
         m.put("CODE_REVIEW", List.of("code review", "code reviews", "code-review", "peer review",
                 "peer reviews", "reviewing code", "pull request review", "pr reviews", "code review process"));
         m.put("CLEAN_CODE", List.of("clean code", "clean, maintainable and scalable code",
-                "maintainable code", "maintainable", "scalable code", "scalable",
-                "code quality", "code maintainability", "readable code", "readable", "best practices"));
+                "clean maintainable and scalable code", "clean maintainable",
+                "maintainable code", "scalable code", "code quality", "code maintainability",
+                "readable code"));
         m.put("PROBLEM_SOLVING", List.of("problem solving", "problem-solving", "problem solving skills",
                 "analytical thinking", "troubleshooting skills"));
-        m.put("DEBUGGING", List.of("debugging", "debug", "debugging skills", "troubleshooting",
-                "troubleshoot", "bug fixing", "error handling"));
+        m.put("DEBUGGING", List.of("debugging", "debug", "debugged", "debugs", "debugging skills",
+                "troubleshooting", "troubleshoot", "troubleshot", "bug fixing", "error handling"));
         m.put("QUERY_OPTIMIZATION", List.of("query optimization", "query optimisation",
                 "optimize queries", "optimising queries", "optimized queries", "optimised queries",
                 "optimize sql queries", "sql optimization", "query tuning", "index tuning",

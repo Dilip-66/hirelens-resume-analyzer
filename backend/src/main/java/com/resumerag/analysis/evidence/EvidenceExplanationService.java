@@ -89,9 +89,9 @@ public final class EvidenceExplanationService {
             sb.append(" through different wording: ");
         }
         sb.append(quote).append(".");
-        if (share.partial()) {
+        if (share.partial() && share.anyNamed()) {
             sb.append(" Only part of this requirement is evidenced: ")
-              .append(share.satisfiedCount()).append(" of ").append(share.totalCount())
+              .append(share.namedCount()).append(" of ").append(share.totalCount())
               .append(" parts were found.");
         }
         return sb.toString();
@@ -100,10 +100,18 @@ public final class EvidenceExplanationService {
     private static String partial(Requirement requirement, EvidenceCandidate best, String quote,
                                  CompoundShare share) {
         StringBuilder sb = new StringBuilder();
-        if (share.partial()) {
+        if (share.partial() && share.anyNamed()) {
             sb.append("Part of this requirement is evidenced and part is not: ")
-              .append(share.satisfiedCount()).append(" of ").append(share.totalCount())
+              .append(share.namedCount()).append(" of ").append(share.totalCount())
               .append(" parts were found (").append(quote).append(").");
+            return sb.toString();
+        }
+        if (share.partial()) {
+            // No term of the group was named outright; something related was found
+            // for part of it and nothing for the rest. Saying "0 of 2 parts were
+            // found" would read as though nothing was found at all.
+            sb.append("Part of this requirement has related evidence and part of it is not mentioned at all")
+              .append(": ").append(quote).append(".");
             return sb.toString();
         }
         if (requirement.demand() == DemandLevel.ADVANCED
@@ -125,28 +133,46 @@ public final class EvidenceExplanationService {
     }
 
     /**
-     * How much of a compound requirement was evidenced, for the explanation.
+     * How much of a conjunctive requirement was evidenced, for the explanation.
      *
      * <p>Declared here rather than reusing the matching service's private record so
      * the explanation layer does not depend on the classifier's internals.
+     *
+     * @param namedCount       terms the resume stated outright
+     * @param totalCount       terms in the requirement
+     * @param conjunctiveGap   whether the job description required every term and at
+     *                         least one was left under-evidenced. Decided by the
+     *                         classifier rather than re-derived here, so the sentence
+     *                         can never disagree with the state it is explaining.
+     *                         A disjunction is never a gap: telling a user "only 1 of
+     *                         2 parts were found" about a requirement the job
+     *                         description wrote with "or" is a statement about the
+     *                         requirement, not about the resume - and it is wrong.
      */
-    public record CompoundShare(int satisfiedCount, int totalCount) {
+    public record CompoundShare(int namedCount, int totalCount, boolean conjunctiveGap) {
+        /** True when the requirement was written as a conjunction and is only partly met. */
         public boolean partial() {
-            return totalCount > 1 && satisfiedCount > 0 && satisfiedCount < totalCount;
+            return conjunctiveGap;
+        }
+
+        /** True when at least one term was named outright, so a count is meaningful. */
+        public boolean anyNamed() {
+            return namedCount > 0;
         }
     }
 
     /**
-     * How much of a compound requirement the evidence covered.
+     * How much of a compound requirement the evidence covered, read through the
+     * operator the job description actually used.
      *
-     * <p>Overload kept package-visible for the matching service, which already
-     * knows the per-term state and should not re-derive it.
+     * <p>Package-visible for the matching service, which already knows the
+     * per-term state and should not re-derive it.
      */
-    static CompoundShare shareOf(Requirement requirement, int satisfied, int total) {
-        if (requirement.normalization().operator() == com.resumerag.analysis.model.CompoundOperator.NONE) {
-            return new CompoundShare(0, 0);
+    static CompoundShare shareOf(Requirement requirement, int named, int total, boolean conjunctiveGap) {
+        if (total <= 1) {
+            return new CompoundShare(0, 0, false);
         }
-        return new CompoundShare(satisfied, total);
+        return new CompoundShare(named, total, conjunctiveGap);
     }
 
     private static String shorten(String text) {
